@@ -5,7 +5,18 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     git \
-    && docker-php-ext-install mysqli zip
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev
+
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg
+
+RUN docker-php-ext-install \
+    mysqli \
+    zip \
+    gd
 
 COPY . /var/www/html/
 
